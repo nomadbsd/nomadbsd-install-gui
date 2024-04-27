@@ -3,7 +3,7 @@ project(
   nomadbsd-install-gui
   HOMEPAGE_URL https://github.com/nomadbsd/nomadbsd-install-gui
   LANGUAGES CXX)
-set(CMAKE_INSTALL_PREFIX "/tmp")
+set(CMAKE_INSTALL_PREFIX "/usr")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -44,8 +44,7 @@ if(MAC)
 else()
   set(EFI_SIZE "40M")
 endif()
-# execute_process( COMMAND sh -c "sed -E 's/@EFI_PART_SIZE@/${EFI_SIZE}/'
-# ${CMAKE_CURRENT_SOURCE_DIR}/${BACKEND}.in > ${BACKEND}" )
+
 add_custom_command(
   OUTPUT ${BACKEND}
   COMMAND
