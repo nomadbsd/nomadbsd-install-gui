@@ -35,6 +35,7 @@
 #include <QStatusBar>
 #include <QFile>
 
+#include "defs.h"
 #include "wizard.h"
 #include "backend.h"
 #include "qt-helper/qt-helper.h"
@@ -123,9 +124,9 @@ SettingsPage::SettingsPage(QWidget *parent) : QWizardPage(parent)
 	QLabel	    *slabel = new QLabel;
 	QLabel	    *ulabel = new QLabel;
 	QLabel	    *info   = new QLabel;
-	QRegExp	    chars   = QRegExp("[a-z]+");
+	QRegularExpression chars("[a-z]+");
 	QProcess    proc;
-        QByteArray  line;
+    QByteArray  line;
 	QStringList args;
 	args << "devlist";
 
@@ -211,7 +212,7 @@ SettingsPage::SettingsPage(QWidget *parent) : QWizardPage(parent)
 	//
 	ulabel->setText(tr("<b>Username*</b>"));
 	usernamele->setMaxLength(8);
-	usernamele->setValidator(new QRegExpValidator(chars));
+	usernamele->setValidator(new QRegularExpressionValidator(chars));
 	usernamele->setPlaceholderText(cfg_username);
 	autologinCb->setText(tr("Auto-login user"));
 	status->setStyleSheet("font-weight: bold; color: red");	
