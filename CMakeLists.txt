@@ -33,26 +33,17 @@ target_include_directories(
   nomadbsd-install-gui
   PUBLIC "${CMAKE_CURRENT_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}"
          "${CMAKE_CURRENT_SOURCE_DIR}/src" "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+if(MAC)
+  set(EFI_PART_SIZE "200M")
+else()
+  set(EFI_PART_SIZE "40M")
+endif()
 
 configure_file(defs.h.in defs.h @ONLY)
+configure_file(nomadbsd-install.in nomadbsd-install @ONLY)
 
 set(LIBS Qt6::Widgets)
 target_link_libraries(nomadbsd-install-gui PRIVATE ${LIBS})
-
-if(MAC)
-  set(EFI_SIZE "200M")
-else()
-  set(EFI_SIZE "40M")
-endif()
-
-add_custom_command(
-  OUTPUT ${BACKEND}
-  COMMAND
-    sh -c
-    "sed -E 's/@EFI_PART_SIZE@/${EFI_SIZE}/' ${CMAKE_CURRENT_SOURCE_DIR}/${BACKEND}.in > ${BACKEND}"
-)
-
-add_custom_target(build_backend ALL DEPENDS "${BACKEND}")
 
 install(TARGETS nomadbsd-install-gui DESTINATION bin)
 install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${BACKEND} DESTINATION libexec)

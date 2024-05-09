@@ -26,7 +26,7 @@
 
 arch=$(sysctl -n hw.machine_arch)
 version=$(cat /VERSION)
-efipartsz=@EFI_PART_SIZE@
+efipartsz="@EFI_PART_SIZE@"
 DESTDIR="/tmp/nbsdinstaller.$$"
 rootfs_label="nbsdrootfs"
 swap_label="nbsdswap"
